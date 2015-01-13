@@ -17,6 +17,7 @@
 # - An optional array of $attributes_to_remove from the Connector.
 define tomcat::config::server::connector (
   $catalina_base         = $::tomcat::catalina_home,
+  $catalina_conf_dir     = "$::tomcat::catalina_home/conf",
   $connector_ensure      = 'present',
   $port                  = undef,
   $protocol              = undef,
@@ -60,7 +61,7 @@ define tomcat::config::server::connector (
 
   augeas { "server-${catalina_base}-${parent_service}-connector-${_protocol}":
     lens    => 'Xml.lns',
-    incl    => "${catalina_base}/conf/server.xml",
+    incl    => "${catalina_conf_dir}/server.xml",
     changes => $changes,
   }
 }
